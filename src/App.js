@@ -6,14 +6,18 @@ import Footer from './Layout/Footer';
 import SignUp from './Auth/SignUp';
 import SignIn from './Auth/Login';
 import SignOut from './Auth/Logout';
+import Book from './PublicSection/Channel2/Book';
+import SearchResult from './PublicSection/Channel2/ChannelContent';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom'
 class App extends Component {
 
   state = {
-    user: localStorage.getItem('user'),
-    open: false
+    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
+    open: false,
+    selectedChannelIndex: -1,
+    channels: []
   }
 
   setUserHandle = (user) => {
@@ -26,8 +30,15 @@ class App extends Component {
     this.setState({ open: !this.state.open })
   }
 
-  render() {
+  SetSelectedChannelIndex = (index) => {
+    this.setState({ selectedChannelIndex: index });
+  }
 
+  setChannels = (channels) => {
+    this.setState({ channels: channels });
+  }
+
+  render() {
     return (
       <BrowserRouter>
 
@@ -35,7 +46,15 @@ class App extends Component {
           <CssBaseline />
           <MenuBar open={this.state.open} onClose={this.toggleHandle} user={this.state.user} />
           <Switch>
-            <Route path="/" exact component={Channel2} />
+            <Route path="/" exact render={(routeProps) => (
+              <Channel2 {...routeProps} channels={this.state.channels} setChannels={this.setChannels} />
+            )} />
+            <Route path="/SerchResult" exact render={(routeProps) => (
+              <SearchResult {...routeProps} data={this.state.channels} SetSelectedChannelIndex={this.SetSelectedChannelIndex} setChannels={this.setChannels} />
+            )} />
+            <Route path="/Book" exact render={(routeProps) => (
+              <Book {...routeProps} user={this.state.user} data={this.state.channels} SelectedChannelIndex={this.state.selectedChannelIndex} setUserHandle={this.setUserHandle} />
+            )} />
             <Route path="/SignIn" exact render={(routeProps) => (
               <SignIn {...routeProps} setUserHandle={this.setUserHandle} />
             )} />

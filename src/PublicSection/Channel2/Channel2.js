@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme, withStyles } from '@material-ui/core/styles';
 import lightGreen from '@material-ui/core/colors/lightGreen';
@@ -8,7 +9,6 @@ import FormControl from '@material-ui/core/FormControl';
 import { Button } from '@material-ui/core';
 import { InlineDatePicker, MuiPickersUtilsProvider } from "material-ui-pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import AdvancedGridList from './ChannelContent';
 import { GET_Doctors, GET_FieldOfConsultant, GET_Cities, GET_ChannelCenters, SEARCH_Channels } from '../../gql';
 import { Query, ApolloConsumer } from 'react-apollo';
 import Select from './SelectComponent';
@@ -209,8 +209,8 @@ class Channel2 extends Component {
                                                         }
                                                     });
                                                    
-                                                    this.setState({ channels: data.searchChannels });
-                                                    console.log(this.state.channels);
+                                                    this.props.setChannels(data.searchChannels);
+                                                    this.props.history.push('/SerchResult')
                                                 }
                                                 }
                                             >
@@ -225,7 +225,6 @@ class Channel2 extends Component {
                     </div>
 
                 </Paper>
-                {<AdvancedGridList data ={this.state.channels}/>}
             </MuiThemeProvider>
         );
     }
@@ -233,6 +232,9 @@ class Channel2 extends Component {
 
 Channel2.propTypes = {
     classes: PropTypes.object.isRequired,
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired,
+    }),
 };
 
-export default withStyles(Channel2Styles)(Channel2);
+export default withRouter(withStyles(Channel2Styles)(Channel2));

@@ -89,7 +89,7 @@ class Login extends Component {
                                                          }
                                                         ).then(({ data }) => {
                                                         if (data.logInNormalUser) {
-                                                            localStorage.setItem('user', data.logInNormalUser);
+                                                            localStorage.setItem('user',JSON.stringify(data.logInNormalUser));
                                                             this.props.setUserHandle(data.logInNormalUser);
                                                             this.props.history.push('/')
                                                         }

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
 import { Button, Paper, Divider } from '@material-ui/core';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -70,72 +71,13 @@ const styles = theme => ({
 
 
 
-const tileData = [
-    {
-        img: null,
-        doctor: 'Dr. Namal Gamage',
-        specialization: 'Heart surgon',
-        channelingCenter: '',
-        city: '',
-        date: new Date().toLocaleDateString(),
-        AvailableChitNo: 20,
-    },
-    {
-        img: null,
-        doctor: 'Dr. Namal Gamage',
-        specialization: 'Heart surgon',
-        channelingCenter: '',
-        city: '',
-        date: new Date().toLocaleDateString(),
-        AvailableChitNo: 20,
-    },
-    {
-        img: null,
-        doctor: 'Dr. Namal Gamage',
-        specialization: 'Heart surgon',
-        channelingCenter: '',
-        city: '',
-        date: new Date().toLocaleDateString(),
-        AvailableChitNo: 20,
-    },
-    {
-        img: null,
-        doctor: 'Dr. Namal Gamage',
-        specialization: 'Heart surgon',
-        channelingCenter: '',
-        city: '',
-        date: new Date().toLocaleDateString(),
-        AvailableChitNo: 20,
-    },
-    {
-        img: null,
-        doctor: 'Dr. Namal Gamage',
-        specialization: 'Heart surgon',
-        channelingCenter: '',
-        city: '',
-        date: new Date().toLocaleDateString(),
-        AvailableChitNo: 20,
-    },
-    {
-        img: null,
-        doctor: 'Dr. Namal Gamage',
-        specialization: 'Heart surgon',
-        channelingCenter: '',
-        city: '',
-        date: new Date().toLocaleDateString(),
-        AvailableChitNo: 20,
-    },
-
-
-];
-
 function AdvancedGridList(props) {
     const { classes } = props;
 
     return (
         <Paper className={classes.root}>
             <List className={classes.list} subheader={<div className={classes.subHeader} component="div" color='primary'>Search Results</div>}>
-                {props.data && props.data.map(tile => (
+                {props.data && props.data.map((tile,index) => (
                     <ListItem className={classes.listItem} key={tile._id} >
                         <ExpansionPanel varient='outlined' className={classes.grow}>
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -170,7 +112,7 @@ function AdvancedGridList(props) {
 
                             </ExpansionPanelDetails>
                             <ExpansionPanelActions>
-                                <Button variant='outlined' size="medium" color="primary">
+                                <Button variant='outlined' size="medium" color="primary" onClick={()=>{props.SetSelectedChannelIndex(index);props.history.push('/Book')}}>
                                     Book
                                 </Button>
                             </ExpansionPanelActions>
@@ -185,6 +127,9 @@ function AdvancedGridList(props) {
 
 AdvancedGridList.propTypes = {
     classes: PropTypes.object.isRequired,
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired,
+    }),
 };
 
-export default withStyles(styles)(AdvancedGridList);
+export default withRouter(withStyles(styles)(AdvancedGridList));
