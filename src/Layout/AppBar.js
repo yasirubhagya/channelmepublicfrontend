@@ -86,6 +86,11 @@ const MenuBar = (props) => {
 
                         <div className={classes.grow}></div>
                         <div className={classes.actionSet}>
+                        <NavLink style={{ textDecoration: 'none' }} to='/'>
+                                <Button variant="outlined" color="primary" className={classes.button}>
+                                    Home
+                                </Button>
+                            </NavLink>
                         { !user &&
                             <NavLink style={{ textDecoration: 'none' }} to='/SignIn'>
                                 <Button variant="outlined" color="primary" className={classes.button}>
@@ -99,6 +104,15 @@ const MenuBar = (props) => {
                                     Register
                                 </Button>
                             </NavLink>
+                        }
+                       
+                        { user &&
+                            (<NavLink style={{ textDecoration: 'none' }} to='/MyChannels'>
+                                <Button variant="outlined" color="primary" className={classes.button}>
+                                    My Channels
+                                </Button>
+                            </NavLink>
+                            )
                         }
                         { user &&
                             (<NavLink style={{ textDecoration: 'none' }} to='/SignOut'>

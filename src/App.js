@@ -8,6 +8,7 @@ import SignIn from './Auth/Login';
 import SignOut from './Auth/Logout';
 import Book from './PublicSection/Channel2/Book';
 import SearchResult from './PublicSection/Channel2/ChannelContent';
+import MyChannels from './PublicSection/Channel2/MyChannels';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom'
@@ -54,6 +55,9 @@ class App extends Component {
             )} />
             <Route path="/Book" exact render={(routeProps) => (
               <Book {...routeProps} user={this.state.user} data={this.state.channels} SelectedChannelIndex={this.state.selectedChannelIndex} setUserHandle={this.setUserHandle} />
+            )} />
+             <Route path="/MyChannels" exact render={(routeProps) => (
+              <MyChannels {...routeProps} user={this.state.user} data={this.state.channels} SelectedChannelIndex={this.state.selectedChannelIndex} setUserHandle={this.setUserHandle} />
             )} />
             <Route path="/SignIn" exact render={(routeProps) => (
               <SignIn {...routeProps} setUserHandle={this.setUserHandle} />

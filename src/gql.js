@@ -438,6 +438,83 @@ mutation {
 }
 `;
 
+const ADD_ChannelChit = gql`
+mutation ADD_ChannelChit(
+  $name: String,
+  $nicNO: String,
+  $email: String,
+  $phoneNo: String,
+  $channelId: ID!
+){
+  addChannelChit(
+    name:$name ,
+    nicNO: $nicNO,
+    email: $email,
+    phoneNo: $phoneNo,
+    channelId: $channelId
+  ){    
+    _id
+    user{
+      _id
+      name
+    }
+    name
+    nicNo
+    email
+    phoneNo
+    chitNo
+    channel{
+      _id
+      doctor{
+        _id
+        name
+      }
+      channelCenter{
+        _id
+        name
+      }
+      timeFrom
+      timeTo
+      chitLimit
+      doctorFees
+      channelFees
+      tax
+      status
+    }
+  }
+}
+`;
+
+const getChannelChitsForaUser =gql`
+{
+  getChannelChitsForaUser{
+    _id
+    user{
+      _id
+      name
+    }
+    chitNo
+    channel{
+      _id
+      doctor{
+        name
+      }
+      channelCenter{
+        name
+      }
+      timeFrom
+      timeTo
+      chitLimit
+      doctorFees
+      channelFees
+      tax
+      status
+    }
+    
+  }
+}
+`;
+
 export {
   GET_FieldOfConsultant,
   Add_Doctor,
@@ -462,5 +539,7 @@ export {
   GET_ChannelCenter,
   REMOVE_DoctorFromannelCenter,
   LOGIN,
-  SignUpNormalUser
+  SignUpNormalUser,
+  ADD_ChannelChit,
+  getChannelChitsForaUser
 };

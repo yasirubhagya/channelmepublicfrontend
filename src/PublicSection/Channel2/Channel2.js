@@ -208,7 +208,6 @@ class Channel2 extends Component {
                                                             date: this.state.searchParams.date
                                                         }
                                                     });
-                                                   
                                                     this.props.setChannels(data.searchChannels);
                                                     this.props.history.push('/SerchResult')
                                                 }
