@@ -85,7 +85,7 @@ class Login extends Component {
                                                 async () => {
                                                     await client.query(
                                                         { query: LOGIN,
-                                                          context:{ headers: { authorization: localStorage.getItem(authToken) ? `Bearer ${localStorage.getItem(authToken)}` : null } }
+                                                          context:{ headers: { authorization: localStorage.getItem('authToken') ? `Bearer ${localStorage.getItem('authToken')}` : null } }
                                                          }
                                                         ).then(({ data }) => {
                                                         if (data.logInNormalUser) {
