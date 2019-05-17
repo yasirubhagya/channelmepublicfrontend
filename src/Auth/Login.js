@@ -83,7 +83,11 @@ class Login extends Component {
                                             onClick={
 
                                                 async () => {
-                                                    await client.query({ query: LOGIN }).then(({ data }) => {
+                                                    await client.query(
+                                                        { query: LOGIN,
+                                                          context:{ headers: { authorization: localStorage.getItem(authToken) ? `Bearer ${localStorage.getItem(authToken)}` : null } }
+                                                         }
+                                                        ).then(({ data }) => {
                                                         if (data.logInNormalUser) {
                                                             localStorage.setItem('user', data.logInNormalUser);
                                                             this.props.setUserHandle(data.logInNormalUser);
