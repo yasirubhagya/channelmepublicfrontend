@@ -49,6 +49,7 @@ class Login extends Component {
     });
     LoginSuccess = (response) => {
         localStorage.setItem('authToken', response.tokenId);
+        console.log( response.tokenId);
         this.setState({ isLogedinWithgoogle: true });
     }
     LoginFailure = (response) => {
@@ -89,7 +90,7 @@ class Login extends Component {
                                                             this.props.history.push('/')
                                                         }
                                                     }).catch(errors => {
-                                                        localStorage.removeItem('authToken'); alert("Failed To LogIn")
+                                                        localStorage.removeItem('authToken'); alert("Failed To LogIn" + errors);
                                                     });
 
                                                 }
