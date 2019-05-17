@@ -80,19 +80,19 @@ class Login extends Component {
 
                                         <Button variant="outlined" color="primary" className={classes.button}
                                             onClick={
-                                                
-                                                async () => {
-                                                const { data, loading, errors } = await client.query({
-                                                    query: LOGIN,
 
-                                                });
-                                                if (errors) { localStorage.removeItem('authToken'); alert("Failed To LogIn") }
-                                                if (data.logInNormalUser) {
-                                                    localStorage.setItem('user', data.logInNormalUser);
-                                                    this.props.setUserHandle(data.logInNormalUser);
-                                                    this.props.history.push('/')
+                                                async () => {
+                                                    await client.query({ query: LOGIN }).then(({ data }) => {
+                                                        if (data.logInNormalUser) {
+                                                            localStorage.setItem('user', data.logInNormalUser);
+                                                            this.props.setUserHandle(data.logInNormalUser);
+                                                            this.props.history.push('/')
+                                                        }
+                                                    }).catch(errors => {
+                                                        localStorage.removeItem('authToken'); alert("Failed To LogIn")
+                                                    });
+
                                                 }
-                                            }
                                             }
                                         >
                                             Complete Sign In
